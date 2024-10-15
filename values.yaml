@@ -1,0 +1,22 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'node_exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+
+rule_files:
+  - "alerts.yml"
+
+storage:
+  retention: 15d
+
+log_level: info
+
+remote_write:
+  - url: "http://remote-storage:1234/write"
+remote_read:
+  - url: "http://remote-storage:1234/read"
+
